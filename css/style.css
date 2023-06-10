@@ -5,7 +5,6 @@ html,
 body {
   font-family: "Noto Sans TC", "Microsoft JhengHei", "微軟正黑體","STHeitiTC-Light", sans-serif;
   background-color: #020202;
-  box-sizing: border-box;
   line-height: 150%;
 }
 
@@ -76,12 +75,19 @@ a:hover {
 }
 
 .navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 0;
-  border-bottom: 1px solid #ffffff;
+  padding: 20px 0px 0px 0px;
   position: relative;
+  background-color: #020202;
+  width: 100%;
+  z-index: 2;
+}
+
+.navbar .container {
+  display: flex;
+  border-bottom: 1px solid #ffffff;
+  padding-bottom: 20px;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .navbar a {
@@ -107,16 +113,19 @@ a:hover {
 }
 
 .navbar-collapse {
-  display: none;  /* 在電腦版時不顯示 */
+  color: #FFFFFF;
   position: absolute;
   top: 100%;
+  left: 0;
   width: 100%;
-  min-height: calc(100vh - 81px); /* 佔滿整個瀏覽器高度扣掉 navbar 高度 */
+  height: 0;
+  overflow: hidden;
+  transition: height 0.5s ease;
   background-color: #020202;
-  border-top: 1px solid #ffffff;
+  opacity: 0;
 }
 
-.navbar-collapse a {
+.collapseLink a {
   font-size: 80px;
   line-height: 1.2;
   margin: 4px 0;
@@ -128,6 +137,23 @@ a:hover {
     width: 144px;
   }
 
+  .navbar {
+    width: 100%;
+  }
+
+  .navbar .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .fixed-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
   .navbar-btn {
     display: block;
   }
@@ -136,11 +162,114 @@ a:hover {
     display: none;
   }
   
-  .navbar-collapse.collapseSwhow {
-    display: flex;
+  .navbar-collapse {
+    overflow: hidden;
     align-items: center;
     justify-content: center;
   }
+
+  .collapseShow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: calc(100vh - 66px); /* 佔滿整個瀏覽器高度扣掉 navbar 高度 */
+    opacity: 1;
+  }
+
+  .collapse-nav {
+    border-bottom: 1px solid #ffffff;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+  }
+
+  .collapse-footer {
+    font-size: 16px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .collapse-footercopyright {
+    padding-top: 32px;
+  }
+
+  .collapse-footerLinks {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 32px;
+    padding-top: 32px;
+    gap: 20px;
+  }
+
+}
+
+
+/* 漢堡選單*/
+.mobile-menu {
+  position: relative;
+  width: 18px;
+  height: 12px;
+  cursor: pointer;
+  z-index: 1;
+}
+.mobile-menu__line,
+.mobile-menu::before,
+.mobile-menu::after {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: #ffffff;
+  transition: all 0.3s;
+} 
+
+/* 漢堡選單中間橫槓 */
+.mobile-menu__line {
+  top: 50%;
+  right: 5%;
+  transform: translateY(-50%);
+}
+
+/* 漢堡選單上面橫槓 */
+.mobile-menu::before {
+  content: "";
+  top: 0;
+  right: 5%;
+}
+
+/* 漢堡選單下面橫槓 */
+.mobile-menu::after {
+  content: "";
+  bottom: 0;
+  right: 5%;
+}
+
+ /* 點擊後圖標中間橫線消失 */
+.open .mobile-menu__line {
+  display: none;
+}
+
+/* 以下設定為點擊後上下橫線旋轉位移 */
+.open.mobile-menu::before,
+.open.mobile-menu::after {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+ .open.mobile-menu::before {
+  transform: rotate(45deg);
+}
+
+.open.mobile-menu::after {
+  transform: rotate(-45deg);
+}
+
+.hide {
+  display: none;
 }
 
 /* banner */
@@ -655,6 +784,7 @@ a:hover {
 .searchIcon {
   height: 18px;
   padding-right: 16px;
+  color: #919191;
 }
 
 .searchBar input {
@@ -664,6 +794,7 @@ a:hover {
   flex-grow: 1;
   background-color: #f2f2f2;
   width: 90%;
+  outline: none;
 }
 
 .searchText {

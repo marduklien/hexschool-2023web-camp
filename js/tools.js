@@ -1,7 +1,35 @@
 // navbar
-$(".navbar-btn").click(function(){
-  $(".navbar-collapse").toggleClass("collapseSwhow")
+// 選取 DOM 元素賦予到變數上
+const navbarBtn = document.querySelector('.navbar-btn')
+const navbarCollapse = document.querySelector('.navbar-collapse')
+
+// click 事件加上 class
+navbarBtn.addEventListener('click', function() {
+  navbarCollapse.classList.toggle('collapseShow')
 })
+
+
+/* 漢堡選單 切換icon*/
+const mobileMenu = document.querySelector(".mobile-menu");
+const navbar = document.querySelector(".mobile-menu");
+mobileMenu.addEventListener("click", function () {
+  navbar.classList.toggle("open");
+});
+
+// scroll to fixed-Top
+document.addEventListener("DOMContentLoaded", function(){
+  window.addEventListener('scroll', function() {
+      if (window.scrollY > 5) {
+        document.getElementById('navbar_top').classList.add('fixed-top');
+        navbar_height = document.querySelector('.navbar').offsetHeight;
+        document.body.style.paddingTop = navbar_height + 'px';
+      } else {
+        document.getElementById('navbar_top').classList.remove('fixed-top');
+        document.body.style.paddingTop = '0';
+      } 
+  });
+}); 
+
 
 // toTop
 $('.toTop').on('click', function () {
